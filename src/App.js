@@ -5,28 +5,28 @@ import './App.css'
 function App() {
     const [tasks, setTasks] = useState([]);
     const [taskTitle, setTaskTitle] = useState('');
-    const [text, setText] = useState('');
+    
     const [save, saveText] = useState(true);
 
     const fetchTasks = async () => {
-        const res = await axios.get('http://localhost:5000/tasks');
+        const res = await axios.get('https://backendsimpletodo.onrender.com/tasks');
         setTasks(res.data);
     };
 
     const addTask = async () => {
-        const res = await axios.post('http://localhost:5000/tasks', { name: taskTitle });
+        const res = await axios.post('https://backendsimpletodo.onrender.com/tasks', { name: taskTitle });
         setTasks([...tasks, res.data]);
         setTaskTitle('');
     };
 
     const toggleTask = async (id, data, saveButton) => {
-        const res = await axios.put(`http://localhost:5000/tasks/${id}`, data);
+        const res = await axios.put(`https://backendsimpletodo.onrender.com/tasks/${id}`, data);
         saveText(saveButton)
         setTasks(tasks.map(task => (task._id === id ? res.data : task)));
     };
 
     const deleteTask = async (id) => {
-        await axios.delete(`http://localhost:5000/tasks/${id}`);
+        await axios.delete(`https://backendsimpletodo.onrender.com/tasks/${id}`);
         setTasks(tasks.filter(task => task._id !== id));
     };
 
